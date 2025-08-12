@@ -1,0 +1,10 @@
+HTTP Request Libraries:
+axios - .get(), .post(), .put(), .delete(), .request(), .patch(), .head(), .options()
+request (deprecated) - request(), request.get(), request.post(), etc.
+node-fetch - fetch()
+http (native) - http.request(), http.get()
+https (native) - https.request(), https.get()
+needle - needle.get(), needle.post(), etc.
+superagent - .get(), .post(), .put(), .delete()
+got - got(), got.get(), got.post(), etc.
+undici - request(), fetch()
