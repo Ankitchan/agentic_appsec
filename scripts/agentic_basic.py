@@ -197,7 +197,7 @@ prompt = ChatPromptTemplate.from_messages(
     [
         ("system", instructions),
         few_shot_prompt,
-        ("human", """<question>{question}</question>""")
+        ("human", """<question>{input}</question>""")
     ]
 )
 
