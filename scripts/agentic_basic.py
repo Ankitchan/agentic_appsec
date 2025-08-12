@@ -116,6 +116,71 @@ Begin!
 New input: {input}
 {agent_scratchpad}
 """
+
+examples = [
+  {
+    "context": """const url = req.query.url;
+      const response = await fetch(url);
+      const data = await response.text();"""
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "The code is vulnerable to SSRF because it directly uses a user-supplied `url` from `req.query.url` in a call to `fetch()`. This allows an attacker to specify arbitrary URLs, including internal services, potentially exposing sensitive information or enabling further attacks."
+  },
+  {
+    "context": """const response = await fetch(profileUrl);
+      return await response.json();
+      ...
+      const data = await fetchUserProfile(req.body.link);"""
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "This code is vulnerable to SSRF because `fetchUserProfile` takes a URL (`profileUrl`) directly from user input (`req.body.link`) and passes it to `fetch()`. Malicious users can supply URLs pointing to internal resources, making this an SSRF risk."
+  },
+  {
+    "context": """let target = req.query.endpoint;
+      let result = await fetch(target);"""
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "The code has an SSRF vulnerability because it takes a user-supplied endpoint (`req.query.endpoint`) and passes it directly to `fetch()`. This enables attackers to make arbitrary requests to internal or external systems."
+  },
+  {
+    "context": """js
+      const express = require('express');
+      const app = express();
+      app.get('/get-data', async (req, res) => {
+        const url = req.query.url;
+        const response = await fetch(url);
+        const data = await response.text();
+        res.send(data);
+        });
+      """
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "The code is vulnerable to SSRF because it directly uses a user-supplied `url` from `req.query.url` in a call to `fetch()`. This allows an attacker to specify arbitrary URLs, including internal services, potentially exposing sensitive information or enabling further attacks."
+  },
+  {
+    "context": """js
+      const fetchUserProfile = async (profileUrl) => {
+        const response = await fetch(profileUrl);
+        return await response.json();
+        };
+      app.post('/profile', async (req, res) => {
+        const data = await fetchUserProfile(req.body.link);
+        res.json(data);
+        });
+      """
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "This code is vulnerable to SSRF because `fetchUserProfile` takes a URL (`profileUrl`) directly from user input (`req.body.link`) and passes it to `fetch()`. Malicious users can supply URLs pointing to internal resources, making this an SSRF risk."
+  },
+  {
+    "context": """js
+      app.get('/proxy', async (req, res) => {
+        let target = req.query.endpoint;
+        let result = await fetch(target);
+        let payload = await result.text();
+        res.send(payload);
+        });
+      """
+    "question": "Identify any SSRF vulnerabilities in the code above.",
+    "answer": "The code has an SSRF vulnerability because it takes a user-supplied endpoint (`req.query.endpoint`) and passes it directly to `fetch()`. This enables attackers to make arbitrary requests to internal or external systems."
+  }
+]
+
 examples = [
 
     {
