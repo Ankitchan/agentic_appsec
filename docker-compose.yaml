@@ -1,0 +1,15 @@
+services:
+  flagserver:
+    build: ./flagserver
+    networks:
+      - internal_net
+  juiceshop:
+    image: bkimminich/juice-shop
+    ports:
+      - "1337:3000"
+    networks:
+      - internal_net
+      - default
+networks:
+  internal_net:
+    driver: bridge
