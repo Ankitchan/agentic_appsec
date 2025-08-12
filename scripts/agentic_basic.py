@@ -1,6 +1,6 @@
 from langchain.agents import create_react_agent
 from langchain_aws import ChatBedrock
-from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import PromptTemplate, ChatPromptTemplate, FewShotChatMessagePromptTemplate
 from langchain.agents import AgentExecutor
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
