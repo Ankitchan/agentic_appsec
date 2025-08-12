@@ -28,7 +28,7 @@ class CustomSearchTool(BaseTool):
         self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
         """Use the tool."""
-        faiss_db_path = "../vector_databases/vtm_faiss"
+        faiss_db_path = "../vector_databases/juice_shop_faiss"
         db = FAISS.load_local(
             faiss_db_path,
             BedrockEmbeddings(model_id="amazon.titan-embed-text-v2:0"),
@@ -46,12 +46,12 @@ class CustomSearchTool(BaseTool):
 tools = [CustomSearchTool()]
 llm = ChatBedrock(
     model_id="us.anthropic.claude-3-5-haiku-20241022-v1:0",
-    model_kwargs={"temperature": 0.6},
+    model_kwargs={"temperature": 0.4},
 )
 
 # Define instructions and prompt
 instructions = """
-You are an agent designed to analyze Python code for potential Insecure Direct Object Reference (IDOR) vulnerabilities.
+You are an agent designed to analyze Python code for potential Server Side Request Forgery (SSRF) vulnerabilities.
 
 ### Analysis Process
 1. Initial Review:

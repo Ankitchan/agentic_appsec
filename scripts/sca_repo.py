@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-repo_url = "https://github.com/redpointsec/vtm.git"
+repo_url = "https://github.com/juice-shop/juice-shop.git"
 local_path = "./repo"
 
 if os.path.isdir(local_path) and os.path.isdir(os.path.join(local_path, ".git")):
@@ -32,7 +32,7 @@ python_files = {}
 # Traverse the directory recursively
 for root, _, files in os.walk(local_path):
     for file in files:
-        if file.endswith(".py"):
+        if file.endswith(".ts") or file.endswith(".js"):
             file_path = os.path.join(root, file)
             try:
                 # Read the contents of the Python file
@@ -71,6 +71,7 @@ prompt = ChatPromptTemplate.from_messages(
 question = """"
 Analyze the provided code for any security 
 flaws you find in it and produce a summary of that analysis.
+Pay special attention to SSRF vulnerabilities.
 """
 
 # Now we will iterate over the Python files and analyze them
@@ -109,7 +110,7 @@ for file_path, content in python_files.items():
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=8000, chunk_overlap=100)
 
 # CHANGE AS DESIRED
-name_of_scan_results_db = "repo_scan_results_faiss"
+name_of_scan_results_db = "juice_shop_faiss"
 
 texts = text_splitter.split_documents(docs)
 db = FAISS.from_documents(texts, embeddings)
