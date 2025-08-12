@@ -17,7 +17,7 @@ from view_directory_tools import (
 # Load environment variables
 load_dotenv()
 
-repo_url = "https://github.com/redpointsec/vtm.git"
+repo_url = "https://github.com/juice-shop/juice-shop.git"
 repo_path = "./repo"
 
 if os.path.isdir(repo_path) and os.path.isdir(os.path.join(repo_path, ".git")):
